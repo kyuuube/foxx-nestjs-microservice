@@ -1,9 +1,10 @@
-import { HttpException, Injectable, Body } from '@nestjs/common'
+import { HttpException, Injectable, Logger, HttpStatus } from '@nestjs/common'
 import { Transport } from '@nestjs/common/enums/transport.enum'
 import { Client, ClientProxy } from '@nestjs/microservices'
 import * as jwt from 'jsonwebtoken'
 
 import { AuthConstants } from './account.constants'
+import { CreateAuthUserDto } from './dto/account.dto'
 import { IAccessToken, IAuthUser, TokenTypeEnum } from './account.interfaces'
 @Injectable()
 export class AccountService {
@@ -12,6 +13,8 @@ export class AccountService {
         transport: Transport.TCP
     })
     public client: ClientProxy
+
+    private logger = new Logger('api-gateway-account-service')
 
     public async test() {
         const pattern = { cmd: 'sum' }
@@ -50,5 +53,16 @@ export class AccountService {
             process.env.JWT_SECRET,
             AuthConstants.access_token.options
         )
+    }
+
+    public async signUp(data: CreateAuthUserDto) {
+        return this.client
+            .send({ cmd: 'signUp' }, data)
+            .toPromise()
+            .catch(error => {
+                this.logger.log(error)
+                const msg = error[0]
+                throw new HttpException(msg, HttpStatus.FORBIDDEN)
+            })
     }
 }

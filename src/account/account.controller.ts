@@ -1,4 +1,4 @@
-import { Controller, Get, Logger, Post, Body, UseGuards } from '@nestjs/common'
+import { Controller, Get, Logger, Post, Body, UseGuards, HttpCode, HttpStatus } from '@nestjs/common'
 import { AccountService } from './account.service'
 import { ApiTags, ApiBearerAuth, ApiOperation } from '@nestjs/swagger'
 import { CreateAuthUserDto } from './dto/account.dto'
@@ -12,6 +12,7 @@ import {
 import { TokenRequirements } from './token-requirements.decorator'
 import { Token } from './token.decorator'
 import { TokenGuard } from './token.guard'
+
 @Controller('account')
 @ApiTags('account')
 @UseGuards(TokenGuard)
@@ -20,7 +21,6 @@ export class AccountController {
     constructor(private readonly accountService: AccountService) {}
 
     @Get('/test')
-    @ApiBearerAuth()
     @ApiBearerAuth()
     @TokenRequirements(TokenTypeEnum.CLIENT, [])
     public test() {
@@ -53,7 +53,8 @@ export class AccountController {
 
     @Post('/signUp')
     @ApiOperation({ summary: '用户注册' })
-    public signUp() {
-        this.logger.log('sign up')
+    public signUp(@Body() createAuthUserDto: CreateAuthUserDto) {
+        this.logger.log(createAuthUserDto)
+        return this.accountService.signUp(createAuthUserDto)
     }
 }

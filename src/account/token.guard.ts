@@ -27,7 +27,7 @@ export class TokenGuard implements CanActivate {
             return true
         } else {
             const req = context.switchToHttp().getRequest()
-            if ( req.headers.authorization ) {
+            if (req.headers.authorization) {
                 try {
                     // validate token
                     const token = req.headers.authorization
@@ -42,7 +42,7 @@ export class TokenGuard implements CanActivate {
 
                     // save token in request object
                     req.token = decodedToken
-                    
+
                     return true
                 } catch (err) {
                     return false

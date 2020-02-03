@@ -5,7 +5,7 @@ export const TokenRequirements = (
     requiredTokenType: TokenTypeEnum,
     requiredUserRoles: UserRoleEnum[]
 ) =>
-SetMetadata(
+    SetMetadata(
         'tokenrequirements',
         new TokenRequirementsHelper(requiredTokenType, requiredUserRoles)
     )
