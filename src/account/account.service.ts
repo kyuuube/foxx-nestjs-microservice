@@ -60,9 +60,7 @@ export class AccountService {
             .send({ cmd: 'signUp' }, data)
             .toPromise()
             .catch(error => {
-                this.logger.log(error)
-                const msg = error[0]
-                throw new HttpException(msg, HttpStatus.FORBIDDEN)
+                throw new HttpException(error.message, HttpStatus.FORBIDDEN)
             })
     }
 }

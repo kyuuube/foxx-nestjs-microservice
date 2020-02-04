@@ -1,4 +1,13 @@
-import { Controller, Get, Logger, Post, Body, UseGuards, HttpCode, HttpStatus } from '@nestjs/common'
+import {
+    Controller,
+    Get,
+    Logger,
+    Post,
+    Body,
+    UseGuards,
+    HttpCode,
+    HttpStatus
+} from '@nestjs/common'
 import { AccountService } from './account.service'
 import { ApiTags, ApiBearerAuth, ApiOperation } from '@nestjs/swagger'
 import { CreateAuthUserDto } from './dto/account.dto'
@@ -30,7 +39,9 @@ export class AccountController {
 
     @Post('/login')
     @ApiOperation({ summary: '账号登录' })
-    public async login(@Body() createAuthUserDto: CreateAuthUserDto): Promise<{ str: string; token: string }>  {
+    public async login(
+        @Body() createAuthUserDto: CreateAuthUserDto
+    ): Promise<{ str: string; token: string }> {
         this.logger.log('log in')
         const user: IAuthUser = {
             id: 234232323,
@@ -54,7 +65,6 @@ export class AccountController {
     @Post('/signUp')
     @ApiOperation({ summary: '用户注册' })
     public signUp(@Body() createAuthUserDto: CreateAuthUserDto) {
-        this.logger.log(createAuthUserDto)
         return this.accountService.signUp(createAuthUserDto)
     }
 }
