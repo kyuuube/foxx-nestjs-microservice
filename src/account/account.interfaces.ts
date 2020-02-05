@@ -2,7 +2,6 @@ export interface IAuthUser {
     createdAt?: Date
     email: string
     id: number
-    role: UserRoleEnum
     updatedAt?: Date
 }
 
@@ -19,9 +18,3 @@ export enum TokenTypeEnum {
     CLIENT,
     SYSTEM
 }
-
-export enum UserRoleEnum {
-    REGULAR
-}
-
-export const UserRoleEnumAsArray = Object.keys(UserRoleEnum)

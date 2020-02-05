@@ -26,12 +26,12 @@ export class AccountService {
                 throw new HttpException(error, error.status)
             })
     }
-    public async login(data) {
+    public async validateUser(data) {
         return this.client
-            .send({ cmd: 'login' }, data)
+            .send({ cmd: 'validateUser' }, data)
             .toPromise()
             .catch(error => {
-                throw new HttpException(error, error.status)
+                throw new HttpException(error.message, HttpStatus.FORBIDDEN)
             })
     }
 
@@ -45,7 +45,6 @@ export class AccountService {
         const payload = {
             email: user.email,
             id: user.id,
-            roles: [user.role],
             type: TokenTypeEnum.CLIENT
         }
         return jwt.sign(
