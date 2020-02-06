@@ -5,7 +5,9 @@ import {
     Post,
     Body,
     UseGuards,
-    Request
+    Request,
+    Put,
+    Delete
 } from '@nestjs/common'
 import { AccountService } from './account.service'
 import { ApiTags, ApiBearerAuth, ApiOperation } from '@nestjs/swagger'
@@ -26,9 +28,27 @@ export class AccountController {
         return req.user
     }
 
-    @Post('/signUp')
-    @ApiOperation({ summary: '用户注册' })
+    @Post('/user')
+    @ApiOperation({ summary: '新增用户' })
     public signUp(@Body() createAuthUserDto: CreateAuthUserDto) {
+        return this.accountService.signUp(createAuthUserDto)
+    }
+
+    @Put('/user')
+    @ApiOperation({ summary: '修改用户' })
+    public editUser(@Body() createAuthUserDto: CreateAuthUserDto) {
+        return this.accountService.signUp(createAuthUserDto)
+    }
+
+    @Delete('/user')
+    @ApiOperation({ summary: '删除用户' })
+    public deteteUser(@Body() createAuthUserDto: CreateAuthUserDto) {
+        return this.accountService.signUp(createAuthUserDto)
+    }
+
+    @Get('/list')
+    @ApiOperation({ summary: '用户列表' })
+    public getUserList(@Body() createAuthUserDto: CreateAuthUserDto) {
         return this.accountService.signUp(createAuthUserDto)
     }
 }
