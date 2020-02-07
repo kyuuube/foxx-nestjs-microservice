@@ -33,14 +33,21 @@ export class MenuDto {
     })
     public readonly url: string
 
+    @ApiProperty({
+        description: 'menu icon',
+        example: '',
+        required: false,
+        type: 'string'
+    })
+    public readonly icon: string
 
     @ApiProperty({
-      description: 'parent id',
-      example: '1',
-      required: false,
-      type: 'string'
-  })
-  public readonly parentId: string
+        description: 'parent id',
+        example: '1',
+        required: false,
+        type: 'string'
+    })
+    public readonly parentId: string
 
     @ApiProperty({
         description: 'permissions list',
