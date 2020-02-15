@@ -69,4 +69,12 @@ export class MenuController {
     public getMenuTree() {
         return this.menuService.getMenuTree()
     }
+
+    @Get('/user/tree')
+    @ApiOperation({ summary: '获取当前用户菜单树' })
+    @ApiBearerAuth()
+    @UseGuards(AuthGuard('jwt'))
+    public getCurrentMenuTree() {
+        return this.menuService.getCurrentTree()
+    }
 }

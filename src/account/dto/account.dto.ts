@@ -42,4 +42,13 @@ export class CreateAuthUserDto {
         type: 'string'
     })
     public readonly avatar: string
+
+    @ApiProperty({
+        description: '用户角色id集',
+        example: '[1,2]',
+        required: false,
+        type: 'Array',
+        enum: Gender
+    })
+    public readonly roleIds: Gender
 }
