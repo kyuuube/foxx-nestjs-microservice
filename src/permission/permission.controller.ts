@@ -30,7 +30,6 @@ export class PermissionController {
         return this.permissionService.create(dto)
     }
 
-
     @Put('/edit')
     @ApiOperation({ summary: '修改权限' })
     @ApiBearerAuth()

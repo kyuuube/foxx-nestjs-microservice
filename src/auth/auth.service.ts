@@ -37,7 +37,7 @@ export class AuthService {
     public createAccessTokenFromAuthUser(user: IAuthUser): string {
         const payload = {
             email: user.email,
-            id: user.id,
+            id: user.id
         }
         return this.jwtService.sign(payload)
     }

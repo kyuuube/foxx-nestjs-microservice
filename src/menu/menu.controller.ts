@@ -8,7 +8,8 @@ import {
     Param,
     Put,
     Delete,
-    Query
+    Query,
+    Request
 } from '@nestjs/common'
 import { MenuService } from './menu.service'
 import { ApiTags, ApiBearerAuth, ApiOperation } from '@nestjs/swagger'
@@ -74,7 +75,7 @@ export class MenuController {
     @ApiOperation({ summary: '获取当前用户菜单树' })
     @ApiBearerAuth()
     @UseGuards(AuthGuard('jwt'))
-    public getCurrentMenuTree() {
-        return this.menuService.getCurrentTree()
+    public getCurrentMenuTree(@Request() req) {
+        return this.menuService.getCurrentTree(req.user)
     }
 }

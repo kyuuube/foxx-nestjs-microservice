@@ -47,5 +47,5 @@ export class RoleDto {
         required: false,
         type: 'Array'
     })
-    public readonly menuList: string[]
+    public readonly menuIdList: string[]
 }

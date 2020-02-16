@@ -67,9 +67,9 @@ export class MenuService {
             })
     }
 
-    public async getCurrentTree() {
+    public async getCurrentTree(user: any) {
         return this.client
-            .send({ cmd: 'menu' }, '')
+            .send({ cmd: 'menu' }, user)
             .toPromise()
             .catch(error => {
                 throw new HttpException(error.message, HttpStatus.FORBIDDEN)
