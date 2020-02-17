@@ -39,7 +39,7 @@ export class RoleDto {
         required: false,
         type: 'Array'
     })
-    public readonly permissList: string[]
+    public readonly permissionIdList: string[]
 
     @ApiProperty({
         description: 'menus list',

@@ -18,6 +18,14 @@ export class PermissionDto {
     public readonly name: string
 
     @ApiProperty({
+        description: '菜单id',
+        example: '3445467882',
+        required: true,
+        type: 'string'
+    })
+    public readonly menuId: string
+
+    @ApiProperty({
         description: '描述',
         example: '',
         required: false,

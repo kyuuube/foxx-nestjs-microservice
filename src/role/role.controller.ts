@@ -8,7 +8,8 @@ import {
     Param,
     Put,
     Delete,
-    Query
+    Query,
+    Request
 } from '@nestjs/common'
 import { RoleService } from './role.service'
 import { ApiTags, ApiBearerAuth, ApiOperation } from '@nestjs/swagger'
@@ -60,5 +61,13 @@ export class RoleController {
     @UseGuards(AuthGuard('jwt'))
     public deleteRole(@Param('id') id: number) {
         return this.roleService.deleteRole(id)
+    }
+
+    @Post('/permissions')
+    @ApiOperation({ summary: '获取角色权限' })
+    @ApiBearerAuth()
+    @UseGuards(AuthGuard('jwt'))
+    public getCurrentUserPermissions(@Request() req, @Body() list: string[]) {
+        return this.roleService.getCurrentPermissions(list, req.user)
     }
 }
