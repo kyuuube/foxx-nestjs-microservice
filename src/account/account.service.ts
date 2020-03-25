@@ -20,4 +20,26 @@ export class AccountService {
                 throw new HttpException(error.message, HttpStatus.FORBIDDEN)
             })
     }
+
+    public async getUserList(data: any) {
+        return this.client.send({cmd: 'user list'}, data).toPromise()
+    }
+
+    public async deleteUser(id: number) {
+        return this.client
+            .send({ cmd: 'del user' }, id)
+            .toPromise()
+            .catch(error => {
+                throw new HttpException(error.message, HttpStatus.FORBIDDEN)
+            })
+    }
+
+    public async editUser(data: CreateAuthUserDto) {
+        return this.client
+            .send({ cmd: 'edit user' }, data)
+            .toPromise()
+            .catch(error => {
+                throw new HttpException(error.message, HttpStatus.FORBIDDEN)
+            })
+    }
 }

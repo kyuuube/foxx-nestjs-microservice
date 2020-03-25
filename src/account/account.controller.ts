@@ -7,11 +7,13 @@ import {
     UseGuards,
     Request,
     Put,
-    Delete
+    Delete,
+    Param
 } from '@nestjs/common'
 import { AccountService } from './account.service'
 import { ApiTags, ApiBearerAuth, ApiOperation } from '@nestjs/swagger'
 import { CreateAuthUserDto } from './dto/account.dto'
+import { PaginationDto } from '../common/dto/pagination.dto'
 import { AuthGuard } from '@nestjs/passport'
 
 @Controller('account')
@@ -36,19 +38,25 @@ export class AccountController {
 
     @Put('/user')
     @ApiOperation({ summary: '修改用户' })
+    @ApiBearerAuth()
+    @UseGuards(AuthGuard('jwt'))
     public editUser(@Body() createAuthUserDto: CreateAuthUserDto) {
-        return this.accountService.signUp(createAuthUserDto)
+        return this.accountService.editUser(createAuthUserDto)
     }
 
-    @Delete('/user')
+    @Delete('/user/:id')
     @ApiOperation({ summary: '删除用户' })
-    public deteteUser(@Body() createAuthUserDto: CreateAuthUserDto) {
-        return this.accountService.signUp(createAuthUserDto)
+    @ApiBearerAuth()
+    @UseGuards(AuthGuard('jwt'))
+    public deteteUser(@Param('id') id: number) {
+        return this.accountService.deleteUser(id)
     }
 
     @Get('/list')
+    @ApiBearerAuth()
+    @UseGuards(AuthGuard('jwt'))
     @ApiOperation({ summary: '用户列表' })
-    public getUserList(@Body() createAuthUserDto: CreateAuthUserDto) {
-        return this.accountService.signUp(createAuthUserDto)
+    public getUserList(@Body() paginationDto: PaginationDto) {
+        return this.accountService.getUserList(paginationDto)
     }
 }
