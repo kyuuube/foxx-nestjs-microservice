@@ -8,7 +8,8 @@ import {
     Request,
     Put,
     Delete,
-    Param
+    Param,
+    Query
 } from '@nestjs/common'
 import { AccountService } from './account.service'
 import { ApiTags, ApiBearerAuth, ApiOperation } from '@nestjs/swagger'
@@ -56,7 +57,7 @@ export class AccountController {
     @ApiBearerAuth()
     @UseGuards(AuthGuard('jwt'))
     @ApiOperation({ summary: '用户列表' })
-    public getUserList(@Body() paginationDto: PaginationDto) {
+    public getUserList(@Query() paginationDto: PaginationDto) {
         return this.accountService.getUserList(paginationDto)
     }
 }

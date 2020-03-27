@@ -1,4 +1,4 @@
-import { Controller, Logger, Post, Body, UseGuards } from '@nestjs/common'
+import { Controller, Logger, Post, Body, UseGuards, HttpCode, HttpStatus } from '@nestjs/common'
 import { AuthService } from './auth.service'
 import { ApiTags, ApiOperation } from '@nestjs/swagger'
 import { CreateAuthUserDto } from '../account/dto/account.dto'
@@ -15,12 +15,13 @@ export class AuthController {
     @ApiOperation({ summary: '账号登录' })
     public async login(
         @Body() createAuthUserDto: CreateAuthUserDto
-    ): Promise<{ user: IAuthUser; token: string }> {
+    ): Promise<{ user?: IAuthUser; token?: string, code?: number }> {
         const user: IAuthUser = await this.authService.validateUser(
             createAuthUserDto
         )
         const token = this.authService.createAccessTokenFromAuthUser(user)
         return {
+            code: HttpStatus.OK,
             user,
             token
         }
