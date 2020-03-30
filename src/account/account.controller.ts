@@ -60,4 +60,12 @@ export class AccountController {
     public getUserList(@Query() paginationDto: PaginationDto) {
         return this.accountService.getUserList(paginationDto)
     }
+
+    @Get('/detail/:id')
+    @ApiOperation({ summary: '用户详情' })
+    @ApiBearerAuth()
+    @UseGuards(AuthGuard('jwt'))
+    public getMenuDetail(@Param('id') id: number) {
+        return this.accountService.userDetail(id)
+    }
 }

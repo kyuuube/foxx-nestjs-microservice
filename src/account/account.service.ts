@@ -22,7 +22,7 @@ export class AccountService {
     }
 
     public async getUserList(data: any) {
-        return this.client.send({cmd: 'user list'}, data).toPromise()
+        return this.client.send({ cmd: 'user list' }, data).toPromise()
     }
 
     public async deleteUser(id: number) {
@@ -37,6 +37,15 @@ export class AccountService {
     public async editUser(data: CreateAuthUserDto) {
         return this.client
             .send({ cmd: 'edit user' }, data)
+            .toPromise()
+            .catch(error => {
+                throw new HttpException(error.message, HttpStatus.FORBIDDEN)
+            })
+    }
+
+    public async userDetail(id: number) {
+        return this.client
+            .send({ cmd: 'user detail' }, id)
             .toPromise()
             .catch(error => {
                 throw new HttpException(error.message, HttpStatus.FORBIDDEN)
