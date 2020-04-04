@@ -21,7 +21,6 @@ export class AuthController {
         )
         const token = this.authService.createAccessTokenFromAuthUser(user)
         return {
-            code: HttpStatus.OK,
             user,
             token
         }
