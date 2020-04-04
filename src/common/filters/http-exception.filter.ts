@@ -17,13 +17,20 @@ export class HttpExceptionFilter implements ExceptionFilter {
         const request = ctx.getRequest<Request>()
         const message = exception.message
 
-        response
-            .status(HttpStatus.OK)
-            .json({
-                msg: message.message,
-                code: message.code,
+        if (message.statusCode && message.statusCode === 401) {
+            return response.status(HttpStatus.OK).json({
+                msg: message.error,
+                code: 401,
                 timestamp: new Date().toISOString(),
                 path: request.url
             })
+        }
+
+        response.status(HttpStatus.OK).json({
+            msg: message.message,
+            code: message.code,
+            timestamp: new Date().toISOString(),
+            path: request.url
+        })
     }
 }
