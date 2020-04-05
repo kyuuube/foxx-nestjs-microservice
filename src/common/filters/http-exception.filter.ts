@@ -17,7 +17,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
         const request = ctx.getRequest<Request>()
         const message = exception.message
 
-        if (message.statusCode && message.statusCode === 401) {
+        if (message && message.statusCode && message.statusCode === 401) {
             return response.status(HttpStatus.OK).json({
                 msg: message.error,
                 code: 401,
