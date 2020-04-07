@@ -60,7 +60,7 @@ export class MenuService {
 
     public async getMenus() {
         return this.client
-            .send({ cmd: 'menus' }, null)
+            .send({ cmd: 'authority' }, {})
             .toPromise()
             .catch(error => {
                 throw new HttpException(error.message, HttpStatus.FORBIDDEN)

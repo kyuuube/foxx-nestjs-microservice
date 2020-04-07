@@ -55,13 +55,13 @@ export class MenuController {
         return this.menuService.getMenuList(params)
     }
 
-    // @Get('/list')
-    // @ApiOperation({ summary: '获取菜单列表' })
-    // @ApiBearerAuth()
-    // @UseGuards(AuthGuard('jwt'))
-    // public getMenus() {
-    //     return this.menuService.getMenus()
-    // }
+    @Get('/authority')
+    @ApiOperation({ summary: '获取菜单权限树' })
+    @ApiBearerAuth()
+    @UseGuards(AuthGuard('jwt'))
+    public getMenus() {
+        return this.menuService.getMenus()
+    }
 
     @Get('/detail/:id')
     @ApiOperation({ summary: '获取菜单详情' })
