@@ -1,5 +1,6 @@
 import { NestFactory } from '@nestjs/core'
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger'
+import * as helmet from 'helmet'
 import { AppModule } from './app.module'
 import * as dotenv from 'dotenv'
 import { HttpExceptionFilter } from './common/filters/http-exception.filter'
@@ -10,6 +11,7 @@ async function bootstrap() {
     const app = await NestFactory.create(AppModule)
     app.useGlobalFilters(new HttpExceptionFilter())
     app.useGlobalInterceptors(new TransformInterceptor())
+    app.use(helmet())
     const options = new DocumentBuilder()
         .setTitle('NestJS API Gateway')
         .setDescription(

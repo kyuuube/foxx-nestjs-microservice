@@ -57,6 +57,15 @@ export class RoleService {
             })
     }
 
+    public async getRoles() {
+        return this.client
+            .send({ cmd: 'all role' }, {})
+            .toPromise()
+            .catch(error => {
+                throw new HttpException(error.message, HttpStatus.FORBIDDEN)
+            })
+    }
+
     public async getCurrentPermissions(list: string[], user: any) {
         return this.client
         .send({ cmd: 'role permissions' }, {list, user})

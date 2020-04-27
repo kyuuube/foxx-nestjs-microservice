@@ -31,6 +31,14 @@ export class RoleController {
         return this.roleService.getRoleList(params)
     }
 
+    @Get('/options')
+    @ApiOperation({ summary: '获取角色列表' })
+    @ApiBearerAuth()
+    @UseGuards(AuthGuard('jwt'))
+    public getRoles() {
+        return this.roleService.getRoles()
+    }
+
     @Get('/detail/:id')
     @ApiOperation({ summary: '获取角色详情' })
     @ApiBearerAuth()
