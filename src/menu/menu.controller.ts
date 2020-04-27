@@ -84,6 +84,7 @@ export class MenuController {
     @ApiBearerAuth()
     @UseGuards(AuthGuard('jwt'))
     public getCurrentMenuTree(@Request() req) {
+        this.logger.log(req.user)
         return this.menuService.getCurrentTree(req.user)
     }
 }
