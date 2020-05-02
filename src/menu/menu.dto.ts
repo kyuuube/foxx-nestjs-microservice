@@ -34,6 +34,14 @@ export class MenuDto {
     public readonly url: string
 
     @ApiProperty({
+        description: 'menu url',
+        example: '/dashboard',
+        required: false,
+        type: 'string'
+    })
+    public readonly menuCode: string
+
+    @ApiProperty({
         description: 'menu icon',
         example: '',
         required: false,
