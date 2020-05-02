@@ -5,10 +5,14 @@ import { AppModule } from './app.module'
 import * as dotenv from 'dotenv'
 import { HttpExceptionFilter } from './common/filters/http-exception.filter'
 import { TransformInterceptor } from './interceptor/transform.interceptor'
+import * as express from 'express';
+import { join } from 'path';
 
 async function bootstrap() {
     dotenv.config()
     const app = await NestFactory.create(AppModule)
+    const rootDir = join(__dirname, '..');
+    app.use('/public', express.static(join(rootDir , 'public')));
     app.useGlobalFilters(new HttpExceptionFilter())
     app.useGlobalInterceptors(new TransformInterceptor())
     app.use(helmet())
