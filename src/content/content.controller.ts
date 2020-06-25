@@ -12,8 +12,8 @@ import {
     Request
 } from '@nestjs/common'
 import { ContentService } from './content.service'
-import { PaginationDto } from '../common/dto/pagination.dto'
-import { ContentDto } from '../content/content.dto'
+import { ContentPaginationDto } from './dto/content.pagination.dto'
+import { ContentDto } from './dto/content.dto'
 import { AuthGuard } from '@nestjs/passport'
 import { ApiTags, ApiBearerAuth, ApiOperation } from '@nestjs/swagger'
 
@@ -27,10 +27,7 @@ export class ContentController {
     @ApiOperation({ summary: '获取菜单列表' })
     @ApiBearerAuth()
     @UseGuards(AuthGuard('jwt'))
-    /**
-     * list
-     */
-    public loadContentDetail(@Query() params: PaginationDto) {
+    public loadContentDetail(@Query() params: ContentPaginationDto) {
         return this.contentService.loadContentList(params)
     }
 

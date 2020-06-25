@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger'
+import { PostStatus } from '../enum/post.status.enum'
 
 export class ContentDto {
     @ApiProperty({
@@ -24,4 +25,13 @@ export class ContentDto {
         type: 'string'
     })
     public readonly content: string
+
+    @ApiProperty({
+        description: 'post status',
+        example: 1,
+        required: true,
+        type: 'number',
+        enum: PostStatus
+    })
+    public readonly status: PostStatus
 }

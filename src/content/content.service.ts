@@ -1,8 +1,8 @@
-import { HttpException, Injectable, HttpStatus } from '@nestjs/common'
+import { HttpException, Injectable, HttpStatus, Logger } from '@nestjs/common'
 import { Transport } from '@nestjs/common/enums/transport.enum'
 import { Client, ClientProxy } from '@nestjs/microservices'
-import { PaginationDto } from '../common/dto/pagination.dto'
-import { ContentDto } from '../content/content.dto'
+import { ContentPaginationDto } from './dto/content.pagination.dto'
+import { ContentDto } from './dto/content.dto'
 
 @Injectable()
 export class ContentService {
@@ -12,11 +12,14 @@ export class ContentService {
     })
     public client: ClientProxy
 
-    public async loadContentList(data: PaginationDto) {
+    private logger = new Logger('api-gateway')
+
+    public async loadContentList(data: ContentPaginationDto) {
         return this.client
             .send({ cmd: 'content list' }, data)
             .toPromise()
             .catch(error => {
+                this.logger.log(error)
                 throw new HttpException(error.message, HttpStatus.FORBIDDEN)
             })
     }
