@@ -26,6 +26,8 @@ export class ContentDto {
     })
     public readonly content: string
 
+    public readonly authorId: number
+
     @ApiProperty({
         description: 'post status',
         example: 1,

@@ -24,6 +24,16 @@ export class ContentService {
             })
     }
 
+    public async getPosts(data: ContentPaginationDto) {
+        return this.client
+            .send({ cmd: 'post list' }, data)
+            .toPromise()
+            .catch(error => {
+                this.logger.log(error)
+                throw new HttpException(error.message, HttpStatus.FORBIDDEN)
+            })
+    }
+
     public async createContent(data: ContentDto) {
         return this.client
             .send({ cmd: 'create post' }, data)
@@ -51,9 +61,9 @@ export class ContentService {
             })
     }
 
-    public async contentDetail(id: string) {
+    public async contentDetail(params: any) {
         return this.client
-            .send({ cmd: 'post detail' }, id)
+            .send({ cmd: 'post detail' }, params)
             .toPromise()
             .catch(error => {
                 throw new HttpException(error.message, HttpStatus.FORBIDDEN)

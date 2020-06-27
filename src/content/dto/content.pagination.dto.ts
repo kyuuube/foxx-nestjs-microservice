@@ -20,4 +20,6 @@ export class ContentPaginationDto extends PaginationDto {
         enum: PostStatus
     })
     public readonly status: PostStatus
+
+    public readonly authorId: number
 }

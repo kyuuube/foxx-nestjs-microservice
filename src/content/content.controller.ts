@@ -24,19 +24,19 @@ export class ContentController {
     constructor(private readonly contentService: ContentService) {}
 
     @Get('/list')
-    @ApiOperation({ summary: '获取菜单列表' })
+    @ApiOperation({ summary: '获取用户文章列表' })
     @ApiBearerAuth()
     @UseGuards(AuthGuard('jwt'))
-    public loadContentDetail(@Query() params: ContentPaginationDto) {
-        return this.contentService.loadContentList(params)
+    public loadContentDetail(@Query() params: ContentPaginationDto, @Request() req) {
+        return this.contentService.loadContentList({...params, authorId: req.user.id})
     }
 
     @Post('/create')
     @ApiOperation({ summary: '创建文章' })
     @ApiBearerAuth()
     @UseGuards(AuthGuard('jwt'))
-    public createContent(@Body() dto: ContentDto) {
-        return this.contentService.createContent(dto)
+    public createContent(@Body() dto: ContentDto, @Request() req) {
+        return this.contentService.createContent({...dto, authorId: req.user.id})
     }
 
     @Put('/edit')
@@ -59,7 +59,13 @@ export class ContentController {
     @ApiOperation({ summary: '文章' })
     @ApiBearerAuth()
     @UseGuards(AuthGuard('jwt'))
-    public contentDetail(@Param('id') id: string) {
-        return this.contentService.contentDetail(id)
+    public contentDetail(@Param('id') id: string, @Request() req) {
+        return this.contentService.contentDetail({id, userId: req.user.id})
+    }
+
+    @Get('/posts')
+    @ApiOperation({ summary: '文章列表' })
+    public getPosts(@Query() params: ContentPaginationDto) {
+        return this.contentService.getPosts(params)
     }
 }
