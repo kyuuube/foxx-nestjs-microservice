@@ -7,6 +7,7 @@ import { HttpExceptionFilter } from './common/filters/http-exception.filter'
 import { TransformInterceptor } from './interceptor/transform.interceptor'
 import * as express from 'express';
 import { join } from 'path';
+import * as bodyParser from 'body-parser';
 
 async function bootstrap() {
     dotenv.config()
@@ -16,6 +17,8 @@ async function bootstrap() {
     app.useGlobalFilters(new HttpExceptionFilter())
     app.useGlobalInterceptors(new TransformInterceptor())
     app.use(helmet())
+    app.use(bodyParser.json({limit: '50mb'}));
+    app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
     const options = new DocumentBuilder()
         .setTitle('NestJS API Gateway')
         .setDescription(
