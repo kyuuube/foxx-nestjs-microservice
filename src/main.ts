@@ -29,7 +29,7 @@ async function bootstrap() {
     const document = SwaggerModule.createDocument(app, options)
     SwaggerModule.setup('api', app, document)
     app.enableCors({
-        origin: '*.kyuuu.be',
+        origin: 'http://admin.kyuuu.be',
         methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
         preflightContinue: false,
         optionsSuccessStatus: 204
