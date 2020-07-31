@@ -1,0 +1,15 @@
+{
+  "apps": [
+    {
+      "name": "gateway",
+      "script": "dist/main.js",
+      "args": [],
+      "env": {
+        "PORT": "8200",
+        "JWT_SECRET": "QB",
+        "NODE_ENV": "development"
+      },
+      "instances": 1
+    }
+  ]
+}

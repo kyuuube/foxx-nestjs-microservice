@@ -2,14 +2,14 @@ import { NestFactory } from '@nestjs/core'
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger'
 import * as helmet from 'helmet'
 import { AppModule } from './app.module'
-import * as dotenv from 'dotenv'
+// import * as dotenv from 'dotenv'
 import { HttpExceptionFilter } from './common/filters/http-exception.filter'
 import { TransformInterceptor } from './interceptor/transform.interceptor'
 import * as express from 'express';
 import { join } from 'path';
 
 async function bootstrap() {
-    dotenv.config()
+    // dotenv.config()
     const app = await NestFactory.create(AppModule)
     const rootDir = join(__dirname, '..');
     app.use('/public', express.static(join(rootDir , 'public')));
@@ -25,7 +25,12 @@ async function bootstrap() {
         .build()
     const document = SwaggerModule.createDocument(app, options)
     SwaggerModule.setup('api', app, document)
-
+    app.enableCors({
+        origin: '*.kyuuu.be',
+        methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+        preflightContinue: false,
+        optionsSuccessStatus: 204
+      });
     await app.listen(3001)
 }
 bootstrap()
